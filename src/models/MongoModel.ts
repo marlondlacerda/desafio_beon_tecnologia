@@ -17,6 +17,9 @@ abstract class MongoModel<T> implements ModelInterface<T> {
 
   readonly update = async (id: string, data: T): Promise<object | null> => 
     this.model.findOneAndUpdate({ _id: id }, { ...data }, { new: true });
+
+  readonly delete = async (id: string): Promise<object | null> =>
+    this.model.findByIdAndDelete(id);
 }
 
 export default MongoModel;

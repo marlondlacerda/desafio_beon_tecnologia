@@ -3,4 +3,5 @@ export default interface Model<T> {
   read(): Promise<T[]>,
   readOne(id: string): Promise<object | null>,
   update(id: string, data: T): Promise<object | null>,
+  delete(id: string): Promise<object | null>,
 }

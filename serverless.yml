@@ -45,9 +45,9 @@ functions:
       - http:
           path: todo/{id}
           method: put
-  # deleteOne:
-  #   handler: src/handler.deleteOne
-  #   events:
-  #     - http:
-  #         path: todo/{id}
-  #         method: delete
+  deleteOne:
+    handler: src/handler.deleteOne
+    events:
+      - http:
+          path: todo/{id}
+          method: delete
