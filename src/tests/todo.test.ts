@@ -84,10 +84,25 @@ describe('2) - Read [GET]', () => {
         .event({})
         .expectResult((result: any) => {
           const body = JSON.parse(result.body);
-          
-          console.log(result)
+
           expect(result.statusCode).to.equal(200);
           expect(body).to.deep.equal(todosMock.find);
+          s.restore();
+        });
+    });
+  });
+
+  describe('2) - When error', () => {
+    it('1) - returns an empty array or with objects containing the task list', () => {
+      const s = sinon.stub(todoModel.model, 'find').rejects(todosMock.findError);
+
+      return lambdaTester(find)
+        .event({})
+        .expectResult((result: any) => {
+          const body = JSON.parse(result.body);
+
+          expect(result.statusCode).to.equal(500);
+          expect(body).to.deep.equal(todosMock.resultFindError);
           s.restore();
         });
     });

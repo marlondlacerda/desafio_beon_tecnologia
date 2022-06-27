@@ -52,6 +52,12 @@ export const resultInvalidCreate3 = {
   "error": "Invalid enum value. Expected 'Pendente' | 'Concluída', received 'Cancelado'"
 };
 
+export const findError = new Error('test find error');
+
+export const resultFindError = {
+  "error": "Internal Server Error"
+};
+
 export const update = {
   "name": "Tarefa 3",
   "execution_date": "2022/06/01",
