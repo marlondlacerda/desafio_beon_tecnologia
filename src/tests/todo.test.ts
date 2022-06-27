@@ -231,5 +231,22 @@ describe('4) - Update [PUT]', () => {
           expect(body).to.deep.equal(todosMock.resultInvalidBody);
         });
     });
+
+    it('4) - When the id is not found returns 404 and message error', () => {
+      const s = sinon.stub(todoModel.model, 'findOneAndUpdate').resolves(null);
+
+      return lambdaTester(update)
+        .event({
+          pathParameters: { id: '5dff58da85eb210f0aac43ef' },
+          body: JSON.stringify(todosInput.todoValidUpdate),
+        })
+        .expectResult((result: any) => {
+          const body = JSON.parse(result.body);
+
+          expect(result.statusCode).to.equal(404);
+          expect(body).to.deep.equal(todosMock.resultFindOneError404);
+          s.restore();
+        });
+    });
   });
 });
