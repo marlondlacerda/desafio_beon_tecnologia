@@ -37,8 +37,9 @@ class Validation {
 
       return MessageUtil.error(result);
     }
-
-    const err = CreateError('error', 'Internal server error');
+    /* istanbul ignore next */
+    const err = CreateError('badRequest', 'invalid body');
+    /* istanbul ignore next */
     return MessageUtil.error(err);
   };
 }

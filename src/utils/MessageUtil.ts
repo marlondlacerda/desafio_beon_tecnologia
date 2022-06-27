@@ -26,14 +26,6 @@ class MessageUtil {
   static error(err: Error) {
     // Caso as requisições forem um erro, ele retorna
     // um objeto com status negativo, 500, 404, etc.
-    if (err.message.includes('duplicate key')) {
-      const result = new ResultUtil(
-        StatusCode.conflict,
-        { error: 'Duplicate Id' },
-      );
-      return result.bodyToString();
-    }
-
     const status = StatusCode[err.name];
 
     if (status) {
@@ -43,8 +35,11 @@ class MessageUtil {
 
     // Caso não seja um erro do tipo especificado,
     // ele retorna um erro genérico com status 500 e um console.log do erro!
+    /* istanbul ignore next */
     const result = new ResultUtil(StatusCode.error, { error: err.message });
+    /* istanbul ignore next */
     console.log(err);
+    /* istanbul ignore next */
     return result.bodyToString();
   }
 }
