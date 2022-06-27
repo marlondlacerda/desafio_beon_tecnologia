@@ -1,6 +1,6 @@
 import lambdaTester from 'lambda-tester';
 import { expect } from 'chai';
-import { create, find } from '../handler';
+import { create, find, findOne } from '../handler';
 import * as todosMock from './mocks/todo.mocks';
 import * as todosInput from './inputs/todoInputs';
 import { TodoModel } from '../models/';
@@ -103,6 +103,24 @@ describe('2) - Read [GET]', () => {
 
           expect(result.statusCode).to.equal(500);
           expect(body).to.deep.equal(todosMock.resultFindError);
+          s.restore();
+        });
+    });
+  });
+});
+
+describe('3) - Read One [GET]', () => {
+  describe('1) - When sucess', () => {
+    it('1) - returns an object containing the task', () => {
+      const s = sinon.stub(todoModel.model, 'findOne').resolves(todosMock.findOne);
+
+      return lambdaTester(findOne)
+        .event({ pathParameters: { id: '5dff58da85eb210f0aac43af' } })
+        .expectResult((result: any) => {
+          const body = JSON.parse(result.body);
+
+          expect(result.statusCode).to.equal(200);
+          expect(body).to.deep.equal(todosMock.findOne);
           s.restore();
         });
     });
