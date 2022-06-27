@@ -29,6 +29,24 @@ abstract class Controller<T> {
       return MessageUtil.error(error);
     }
   };
+
+  readonly findOne = async (event: APIGatewayEvent) => {
+    const { id } = event.pathParameters;
+
+    try {
+      const result = await this.service.readOne(id);
+        
+      if (!result) {
+        const error = CreateError('notFound', 'The data was not found!');
+
+        return MessageUtil.error(error);
+      }
+
+      return MessageUtil.success('success', result);
+    } catch (err) {
+      return MessageUtil.error(err);
+    }
+  };
 }
 
 export default Controller;
