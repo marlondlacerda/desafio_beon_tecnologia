@@ -6,6 +6,7 @@ export const todoSchema = z.object({
     invalid_type_error: 'Nome deve ser uma string',
   }),
   execution_date: z.preprocess((arg) => {
+    /* istanbul ignore next */
     if (typeof arg === 'string' || arg instanceof Date) return new Date(arg);
   }, z.date()),
   situation: z.enum(['Pendente', 'Concluída'], {
@@ -17,6 +18,7 @@ export const todoSchema = z.object({
     invalid_type_error: 'Prioridade deve ser "Baixa", "Média" ou "Alta"',
   }),
   conclusion_date: z.preprocess((arg) => {
+    /* istanbul ignore next */
     if (typeof arg === 'string' || arg instanceof Date) return new Date(arg);
   }, z.date()),
 });
