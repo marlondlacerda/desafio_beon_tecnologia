@@ -2,6 +2,8 @@ import { APIGatewayEvent } from 'aws-lambda';
 import { Service } from '../services';
 import { CreateError, MessageUtil } from '../utils';
 
+const INTERNAL_SERVER_ERROR = 'Internal Server Error';
+
 abstract class Controller<T> {
   constructor(
     readonly service: Service<T>,
@@ -25,7 +27,7 @@ abstract class Controller<T> {
       const result = await this.service.read();
       return MessageUtil.success('success', result);
     } catch (err) {
-      const error = CreateError('error', 'Internal Server Error');
+      const error = CreateError('error', INTERNAL_SERVER_ERROR);
       return MessageUtil.error(error);
     }
   };
@@ -44,7 +46,7 @@ abstract class Controller<T> {
 
       return MessageUtil.success('success', result);
     } catch (err) {
-      const error = CreateError('error', 'Internal Server Error');
+      const error = CreateError('error', INTERNAL_SERVER_ERROR);
       return MessageUtil.error(error);
     }
   };
@@ -63,7 +65,7 @@ abstract class Controller<T> {
 
       return MessageUtil.success('noContent');
     } catch (err) {
-      const error = CreateError('error', 'Internal Server Error');
+      const error = CreateError('error', INTERNAL_SERVER_ERROR);
       return MessageUtil.error(error);
     }
   };
