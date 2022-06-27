@@ -28,11 +28,13 @@ export const find = [
 
 export const create = {
   "name": "Tarefa 3",
-  "execution_date": "2022/06/01",
+  "execution_date": "2022-06-01T03:00:00.000Z",
   "situation": "Pendente",
   "priority": "Alta",
-  "conclusion_date": "2020/06/05",
+  "conclusion_date": "2022-06-05T03:00:00.000Z",
 };
+
+export const castError = new Error('Cast to number failed for value "NaN" at path "id" for model "Books"');
 
 export const update = {
   "name": "Tarefa 3",
