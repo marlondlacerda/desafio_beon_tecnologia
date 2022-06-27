@@ -11,6 +11,9 @@ abstract class MongoModel<T> implements ModelInterface<T> {
     this.model.create({ ...data });
 
   readonly read = async (): Promise<T[]> => this.model.find();
+
+  readonly readOne = async (id: string): Promise<object | null> => 
+    this.model.findOne({ _id: id });
 }
 
 export default MongoModel;
