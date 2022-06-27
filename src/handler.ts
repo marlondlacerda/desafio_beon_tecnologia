@@ -43,3 +43,11 @@ export const update: Handler = async (event: APIGatewayEvent) => {
 
   return todoController.update(event);
 };
+
+export const deleteOne: Handler = async (event: APIGatewayEvent) => {
+  const result = await validation.params(event);
+
+  if (result) return result;
+
+  return todoController.deleteOne(event);
+};
