@@ -28,3 +28,12 @@ export const todoInvalidCreate3 = {
   priority: 'Alta',
   conclusion_date: '2022/06/05',
 };
+
+export const todoValidUpdate = {
+  id: '5dff58da85eb210f0aac43af',
+  name: 'Tarefa 3',
+  execution_date: '2022/06/01',
+  situation: 'Concluída',
+  priority: 'Alta',
+  conclusion_date: '2020/06/05',
+};
