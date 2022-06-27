@@ -170,18 +170,65 @@ describe('3) - Read One [GET]', () => {
 
 describe('4) - Update [PUT]', () => {
   describe('1) - When sucess', () => {
-    it('1) - returns an object containing the task', () => {
+    it('1) - returns only status 204', () => {
       const s = sinon.stub(todoModel.model, 'findOneAndUpdate').resolves(todosMock.update);
 
-      return lambdaTester(update).event({
+      return lambdaTester(update)
+        .event({
           pathParameters: { id: '5dff58da85eb210f0aac43af' },
-          body: JSON.stringify(todosInput.todoValidUpdate)
-        }).expectResult((result: any) => {
+          body: JSON.stringify(todosInput.todoValidUpdate),
+        })
+        .expectResult((result: any) => {
+          expect(result.statusCode).to.equal(204);
+          expect(result.body).to.be.equal(undefined);
+          s.restore();
+        });
+    });
+  });
+
+  describe('2) - When fail or Error', () => {
+    it('1) - returns 500 with message "Internal Server Error"', () => {
+      const s = sinon.stub(todoModel.model, 'findOneAndUpdate').rejects(todosMock.findError);
+
+      return lambdaTester(update)
+        .event({
+          pathParameters: { id: '5dff58da85eb210f0aac43af' },
+          body: JSON.stringify(todosInput.todoValidUpdate),
+        })
+        .expectResult((result: any) => {
           const body = JSON.parse(result.body);
 
-          expect(result.statusCode).to.equal(200);
-          expect(body).to.deep.equal(todosMock.update);
+          expect(result.statusCode).to.equal(500);
+          expect(body).to.deep.equal(todosMock.resultFindError);
           s.restore();
+      });
+    })
+
+    it('2) - When the id is invalid returns 400 and message error', () => {
+      return lambdaTester(update)
+        .event({
+          pathParameters: { id: '5dff58da85eb210f0aac43' },
+          body: JSON.stringify(todosInput.todoValidUpdate),
+        })
+        .expectResult((result: any) => {
+          const body = JSON.parse(result.body);
+
+          expect(result.statusCode).to.equal(400);
+          expect(body).to.deep.equal(todosMock.resultInvalidId);
+        });
+    });
+
+    it('3) - When the body is invalid returns 400 and message error', () => {
+      return lambdaTester(update)
+        .event({
+          pathParameters: { id: '5dff58da85eb210f0aac43af' },
+          body: JSON.stringify(todosInput.todoInvalidUpdate),
+        })
+        .expectResult((result: any) => {
+          const body = JSON.parse(result.body);
+
+          expect(result.statusCode).to.equal(400);
+          expect(body).to.deep.equal(todosMock.resultInvalidBody);
         });
     });
   });

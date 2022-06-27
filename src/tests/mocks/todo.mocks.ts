@@ -74,3 +74,7 @@ export const update = {
   "priority": "Alta",
   "conclusion_date": "2020/06/05"
 };
+
+export const resultInvalidBody = {
+  "error": "Invalid enum value. Expected 'Pendente' | 'Concluída', received 'Cancelado'"
+}

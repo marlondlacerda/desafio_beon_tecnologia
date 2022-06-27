@@ -37,3 +37,12 @@ export const todoValidUpdate = {
   priority: 'Alta',
   conclusion_date: '2020/06/05',
 };
+
+export const todoInvalidUpdate = {
+  _id: '5dff58da85eb210f0aac43af',
+  name: 'Tarefa 3',
+  execution_date: '2022/06/01',
+  situation: 'Cancelado',
+  priority: 'Alta',
+  conclusion_date: '2020/06/05',
+};
