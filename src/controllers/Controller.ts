@@ -1,5 +1,6 @@
 import { APIGatewayEvent } from 'aws-lambda';
 import { Service } from '../services';
+import CacheRedis from '../middlewares/CacheRedis';
 import { CreateError, MessageUtil } from '../utils';
 
 const INTERNAL_SERVER_ERROR = 'Internal Server Error';
@@ -7,6 +8,7 @@ const INTERNAL_SERVER_ERROR = 'Internal Server Error';
 abstract class Controller<T> {
   constructor(
     readonly service: Service<T>,
+    readonly cacheRedis: CacheRedis<T>,
   ) {}
 
   readonly create = async (event: APIGatewayEvent) => {
@@ -14,6 +16,9 @@ abstract class Controller<T> {
 
     try {
       const result = await this.service.create(params);
+      const { id } = result as any;
+
+      this.cacheRedis.set(`getOne:${id}`, result, 60);
 
       return MessageUtil.success('created', result);
     } catch (err) {
@@ -24,7 +29,15 @@ abstract class Controller<T> {
 
   readonly find = async () => {
     try {
+      const cached = await this.cacheRedis.get('getAll');
+
+      if (cached) {
+        return MessageUtil.success('cached', cached);
+      }
+
       const result = await this.service.read();
+      this.cacheRedis.set('getAll', result, 60);
+
       return MessageUtil.success('success', result);
     } catch (err) {
       const error = CreateError('error', INTERNAL_SERVER_ERROR);
