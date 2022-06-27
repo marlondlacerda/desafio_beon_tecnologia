@@ -41,8 +41,6 @@ describe('1) - Create [POST]', () => {
     });
 
     it('2) - When a field is missing in the request body', () => {
-      const s = sinon.stub(todoModel.model, 'create').resolves(todosMock.create);
-
       return lambdaTester(create)
         .event({ body: JSON.stringify(todosInput.todoInvalidCreate1) })
         .expectResult((result: any) => {
@@ -50,13 +48,10 @@ describe('1) - Create [POST]', () => {
 
           expect(result.statusCode).to.equal(400);
           expect(body).to.deep.equal(todosMock.resultInvalidCreate1);
-          s.restore();
         });
     });
 
     it('3) - When a field is invalid date', () => {
-      const s = sinon.stub(todoModel.model, 'create').resolves(todosMock.create);
-
       return lambdaTester(create)
         .event({ body: JSON.stringify(todosInput.todoInvalidCreate2) })
         .expectResult((result: any) => {
@@ -64,7 +59,17 @@ describe('1) - Create [POST]', () => {
 
           expect(result.statusCode).to.equal(400);
           expect(body).to.deep.equal(todosMock.resultInvalidCreate2);
-          s.restore();
+        });
+    });
+
+    it('4) - When a enum is invalid for situation', () => {
+      return lambdaTester(create)
+        .event({ body: JSON.stringify(todosInput.todoInvalidCreate3) })
+        .expectResult((result: any) => {
+          const body = JSON.parse(result.body);
+
+          expect(result.statusCode).to.equal(400);
+          expect(body).to.deep.equal(todosMock.resultInvalidCreate3);
         });
     });
   });

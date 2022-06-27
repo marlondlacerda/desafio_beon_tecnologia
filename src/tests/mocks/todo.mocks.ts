@@ -48,6 +48,10 @@ export const resultInvalidCreate2 = {
   "error": "Data inválida ou não informada, exemplos de data válidas:\"YY/MM/DD\" ou \"2020-01-01T00:00:00.000Z\""
 };
 
+export const resultInvalidCreate3 = {
+  "error": "Invalid enum value. Expected 'Pendente' | 'Concluída', received 'Cancelado'"
+};
+
 export const update = {
   "name": "Tarefa 3",
   "execution_date": "2022/06/01",
