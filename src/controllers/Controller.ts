@@ -48,6 +48,26 @@ abstract class Controller<T> {
       return MessageUtil.error(error);
     }
   };
+
+  readonly update = async (event: APIGatewayEvent) => {
+    const { eventId } = event.pathParameters;
+    const params:T = JSON.parse(event.body);
+
+    try {
+      const result = await this.service.update(eventId, params);
+
+      if (!result) {
+        const error = CreateError('notFound', 'The data was not found!');
+
+        return MessageUtil.error(error);
+      }
+
+      return MessageUtil.success('noContent');
+    } catch (err) {
+      const error = CreateError('error', 'Internal Server Error');
+      return MessageUtil.error(error);
+    }
+  };
 }
 
 export default Controller;
