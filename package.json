@@ -9,7 +9,7 @@
     "local": "serverless offline",
     "deploy": "serverless deploy",
     "test": "mocha -r ts-node/register src/tests/**/*$NAME*.{test,spec}.ts --exit -t 60000",
-    "coverage": "nyc --reporter lcov npm run test"
+    "coverage": "nyc npm run test"
   },
   "dependencies": {
     "dotenv": "^16.0.0",
