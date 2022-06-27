@@ -26,7 +26,7 @@ describe('1) - Create [POST]', () => {
   });
 
   describe('2) - When the request is invalid or Error', () => {
-    it('1) - When Error', () => {
+    it('1) - When mongoose throw Error', () => {
       const s = sinon.stub(todoModel.model, 'create').rejects(todosMock.castError);
 
       return lambdaTester(create)
@@ -36,6 +36,20 @@ describe('1) - Create [POST]', () => {
 
           expect(result.statusCode).to.equal(400);
           expect(body).to.deep.equal(todosMock.resultCreateError);
+          s.restore();
+        });
+    });
+
+    it('2) - When a field is missing in the request body', () => {
+      const s = sinon.stub(todoModel.model, 'create').resolves(todosMock.create);
+
+      return lambdaTester(create)
+        .event({ body: JSON.stringify(todosInput.todoInvalidCreate1) })
+        .expectResult((result: any) => {
+          const body = JSON.parse(result.body);
+
+          expect(result.statusCode).to.equal(400);
+          expect(body).to.deep.equal(todosMock.resultInvalidCreate1);
           s.restore();
         });
     });
