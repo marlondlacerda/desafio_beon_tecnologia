@@ -58,6 +58,10 @@ export const resultFindError = {
   "error": "Internal Server Error"
 };
 
+export const resultFindOneError404 = {
+  "error": "The data was not found!"
+}
+
 export const update = {
   "name": "Tarefa 3",
   "execution_date": "2022/06/01",

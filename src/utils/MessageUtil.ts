@@ -28,6 +28,7 @@ class MessageUtil {
     // um objeto com status negativo, 500, 404, etc.
     const status = StatusCode[err.name];
 
+    /* istanbul ignore next */
     if (status) {
       const result = new ResultUtil(status, { error: err.message });
       return result.bodyToString();
