@@ -27,28 +27,28 @@ functions:
       - http:
           path: todo
           method: post
-  update:
-    handler: src/handler.update
-    events:
-      - http:
-          path: todo/{id}
-          method: put
-  find:
-    handler: src/handler.find
-    events:
-      - http:
-          path: todo
-          method: get
-  findOne:
-    handler: src/handler.findOne
-    events:
-      - http:
-          path: todo/{id}
-          method: get
+  # update:
+  #   handler: src/handler.update
+  #   events:
+  #     - http:
+  #         path: todo/{id}
+  #         method: put
+  # find:
+  #   handler: src/handler.find
+  #   events:
+  #     - http:
+  #         path: todo
+  #         method: get
+  # findOne:
+  #   handler: src/handler.findOne
+  #   events:
+  #     - http:
+  #         path: todo/{id}
+  #         method: get
 
-  deleteOne:
-    handler: src/handler.deleteOne
-    events:
-      - http:
-          path: todo/{id}
-          method: delete
+  # deleteOne:
+  #   handler: src/handler.deleteOne
+  #   events:
+  #     - http:
+  #         path: todo/{id}
+  #         method: delete
