@@ -1,3 +1,2 @@
-import TodoModel from './TodoModel';
-
-export default TodoModel;
+export { default as MongoModel } from './MongoModel';
+export { default as TodoModel } from './TodoModel';
