@@ -1,6 +1,6 @@
 import { APIGatewayEvent } from 'aws-lambda';
 import { Service } from '../services';
-import { MessageUtil } from '../utils';
+import { CreateError, MessageUtil } from '../utils';
 
 abstract class Controller<T> {
   constructor(
@@ -15,7 +15,8 @@ abstract class Controller<T> {
 
       return MessageUtil.success('created', result);
     } catch (err) {
-      return MessageUtil.error(err);
+      const error = CreateError('badRequest', err.message);
+      return MessageUtil.error(error);
     }
   };
 }
