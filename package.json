@@ -18,6 +18,7 @@
     "zod": "^3.17.3"
   },
   "devDependencies": {
+    "@istanbuljs/nyc-config-typescript": "^1.0.2",
     "@types/aws-lambda": "^8.10.101",
     "@types/chai": "^4.3.1",
     "@types/dotenv-safe": "^8.1.2",
