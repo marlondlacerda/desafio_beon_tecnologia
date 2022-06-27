@@ -27,4 +27,24 @@ describe('Create [POST]', () => {
         s.restore();
       });
   });
+
+  it('error', () => {
+    const s = sinon.stub(todoModel.model, 'create').rejects(todosMock.castError);
+
+    return lambdaTester(create)
+      .event({ body: JSON.stringify({
+        name: 'Tarefa 3',
+        execution_date: '2022/06/01',
+        situation: 'Pendente',
+        priority: 'Alta',
+        conclusion_date: '2022/06/05',
+      })})
+      .expectResult((result: any) => {
+        const body = JSON.parse(result.body);
+
+        expect(result.statusCode).to.equal(400);
+        expect(body).to.deep.equal(todosMock.resultCreateError);
+        s.restore();
+      });
+  });
 });
