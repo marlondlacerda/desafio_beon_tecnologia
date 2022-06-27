@@ -16,6 +16,9 @@ abstract class Service<T> {
 
   readonly readOne = async (id: string): Promise<object | null> =>
     this.model.readOne(id);
+
+  readonly update = async (id: string, data: T): Promise<object | null> =>
+    this.model.update(id, data);
 }
 
 export default Service;
