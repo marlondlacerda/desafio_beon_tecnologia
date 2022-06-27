@@ -1,6 +1,6 @@
 import lambdaTester from 'lambda-tester';
 import { expect } from 'chai';
-import { create, find, findOne, update } from '../handler';
+import { create, find, findOne, update, deleteOne } from '../handler';
 import * as todosMock from './mocks/todo.mocks';
 import * as todosInput from './inputs/todoInputs';
 import { TodoModel } from '../models/';
@@ -178,6 +178,22 @@ describe('4) - Update [PUT]', () => {
           pathParameters: { id: '5dff58da85eb210f0aac43af' },
           body: JSON.stringify(todosInput.todoValidUpdate),
         })
+        .expectResult((result: any) => {
+          expect(result.statusCode).to.equal(204);
+          expect(result.body).to.be.equal(undefined);
+          s.restore();
+        });
+    });
+  });
+});
+
+describe('5) - Delete [DELETE]', () => {
+  describe('1) - When sucess', () => {
+    it('1) - returns only status 204', () => {
+      const s = sinon.stub(todoModel.model, 'findOneAndDelete').resolves(todosMock.delete);
+
+      return lambdaTester(deleteOne)
+        .event({ pathParameters: { id: '5dff58da85eb210f0aac43af' } })
         .expectResult((result: any) => {
           expect(result.statusCode).to.equal(204);
           expect(result.body).to.be.equal(undefined);
