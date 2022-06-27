@@ -69,6 +69,17 @@ abstract class Controller<T> {
       return MessageUtil.error(error);
     }
   };
+
+  readonly deleteOne = async (event: APIGatewayEvent) => {
+    const { id } = event.pathParameters;
+    try {
+      await this.service.delete(id);
+
+      return MessageUtil.success('noContent');
+    } catch (err) {
+      return MessageUtil.error(err);
+    }
+  };
 }
 
 export default Controller;
