@@ -48,6 +48,11 @@ abstract class Controller<T> {
   readonly findOne = async (event: APIGatewayEvent) => {
     const { id } = event.pathParameters;
 
+    const cached = await this.cacheRedis.get(`getOne:${id}`);
+    if (cached) {
+      return MessageUtil.success('cached', cached);
+    }
+
     try {
       const result = await this.service.readOne(id);
         
@@ -56,6 +61,8 @@ abstract class Controller<T> {
 
         return MessageUtil.error(error);
       }
+
+      this.cacheRedis.set(`getOne:${id}`, result, 60 * 30);
 
       return MessageUtil.success('success', result);
     } catch (err) {
