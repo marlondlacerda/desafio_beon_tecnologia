@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
-const DATE_MSG = 'execution_date deve ser uma data exemplo:'
-  + '"YY/MM/DD" ou "2020-01-01T00:00:00.000Z"';
+const dateMessage = (field: string) => `"${field}" deve ser uma data exemplo:
+"YY/MM/DD" ou "2020-01-01T00:00:00.000Z"`;
 
 export const todoSchema = z.object({
   name: z.string({
@@ -12,8 +12,8 @@ export const todoSchema = z.object({
     /* istanbul ignore next */
     if (typeof arg === 'string' || arg instanceof Date) return new Date(arg);
   }, z.date({
-    required_error: DATE_MSG,
-    invalid_type_error: DATE_MSG,
+    required_error: dateMessage('execution_date'),
+    invalid_type_error: dateMessage('execution_date'),
   })),
   situation: z.enum(['Pendente', 'Concluída'], {
     required_error: '"situation" é obrigatória',
@@ -27,8 +27,8 @@ export const todoSchema = z.object({
     /* istanbul ignore next */
     if (typeof arg === 'string' || arg instanceof Date) return new Date(arg);
   }, z.date({
-    required_error: DATE_MSG,
-    invalid_type_error: DATE_MSG,
+    required_error: dateMessage('conclusion_date'),
+    invalid_type_error: dateMessage('conclusion_date'),
   })),
 });
 

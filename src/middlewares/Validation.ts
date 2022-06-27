@@ -2,7 +2,7 @@ import { APIGatewayEvent } from 'aws-lambda';
 import { Schema, ZodError } from 'zod';
 import { CreateError, MessageUtil } from '../utils';
 
-const DATE_MSG = '"execution_date" deve ser uma data! exemplo:'
+const DATE_MSG = 'Data inválida ou não informada, exemplos de data válidas:'
   + '"YY/MM/DD" ou "2020-01-01T00:00:00.000Z"';
 
 class Validation {
