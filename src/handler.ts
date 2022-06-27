@@ -25,3 +25,11 @@ export const create: Handler = async (event: APIGatewayEvent) => {
 };
 
 export const find: Handler = () => todoController.find();
+
+export const findOne: Handler = async (event: APIGatewayEvent) => {
+  const result = await validation.params(event);
+
+  if (result) return result;
+
+  return todoController.findOne(event);
+};
