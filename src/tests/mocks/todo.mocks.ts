@@ -40,6 +40,14 @@ export const resultCreateError = {
   "error":'Cast to number failed for value "NaN" at path "id" for model "Books"'
 };
 
+export const resultInvalidCreate1 = {
+  "error": "\"name\" é obrigatório"
+};
+
+export const resultInvalidCreate2 = {
+  error: '"conclusion_date" deve ser uma data exemplo:\n\"YY/MM/DD\" ou "2020-01-01T00:00:00.000Z"'
+}
+
 export const update = {
   "name": "Tarefa 3",
   "execution_date": "2022/06/01",
