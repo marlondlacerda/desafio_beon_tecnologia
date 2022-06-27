@@ -36,6 +36,10 @@ export const create = {
 
 export const castError = new Error('Cast to number failed for value "NaN" at path "id" for model "Books"');
 
+export const resultCreateError = { 
+  "error":'Cast to number failed for value "NaN" at path "id" for model "Books"'
+};
+
 export const update = {
   "name": "Tarefa 3",
   "execution_date": "2022/06/01",
