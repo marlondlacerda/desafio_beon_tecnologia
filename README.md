@@ -3,7 +3,7 @@
 <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/marlondlacerda/desafio_beon_tecnologia?color=6E40C9&style=flat-square"><img alt="GitHub Top Language" src="https://img.shields.io/github/languages/top/marlondlacerda/desafio_beon_tecnologia?color=2b7489&style=flat-square">
 <a href="https://github.com/marlondlacerda/desafio_beon_tecnologia/commits/main"><img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/marlondlacerda/desafio_beon_tecnologia?color=6E40C9&style=flat-square"></a>
 
-<img align="right" src="public/img/beonlogo.jpeg" width="50%" alt="python in pixel art">
+<img align="right" src="public/img/beonlogo.jpeg" width="150px" alt="python in pixel art">
 
 ## Tópicos
 
@@ -14,15 +14,16 @@
 [Instalação e uso](#instalação-e-uso)
 
 <br>
-<br>
-<br>
-<br>
+
+---
 
 ## Sobre a API
 
 Uma API desenvolvida em Typescript, Redis, MongoDB, NodeJS e AWS Lambda para o desafio Beon.
 
 É uma API RESTful que utiliza o padrão de nomeação de rotas para identificar os endpoints. Executar CRUD em um banco de dados MongoDB. E o Redis para armazenar os dados em cache.  
+
+---
 
 ## Tecnologias
 
@@ -46,6 +47,8 @@ Uma API desenvolvida em Typescript, Redis, MongoDB, NodeJS e AWS Lambda para o d
 - Lambda Tester
 - Docker
 
+---
+
 ## Instalação e uso
 
 ### Body - Corpo da requisição
@@ -68,13 +71,15 @@ git clone git@github.com:marlondlacerda/desafio_beon_tecnologia.git
 # Entre na pasta com 
 cd desafio_beon_tecnologia
 
-# Crie um arquivo .env para setar as variáveis de ambiente, utilize o arquivo .env.example como referência
+# Crie um arquivo .env para setar as variáveis de ambiente, utilize o arquivo .env.example 
+#como referência
 
 #COM O DOCKER-COMPOSE
 # Execute o comando
 docker-compose up --build
 
-##obs caso der erro de variáveis de ambiente, vá no arquivo docker-compose.yml e nas sessões environment, adicione as variáveis de ambiente para cada sessão
+##obs caso der erro de variáveis de ambiente, vá no arquivo docker-compose.yml e nas sessões
+# environment, adicione as variáveis de ambiente para cada sessão
 
 ## Após o docker-compose terminar, você estará apto para executar as requisições
 
@@ -100,6 +105,8 @@ Com o serverless offline local ou docker compose no ar, observe o corpo de requi
 }
 ```
 
+---
+
 Método: POST <br>
 Path: /dev/todo/ <br>
 StatusCode: 201 <br>
@@ -124,3 +131,5 @@ Método: DELETE <br>
 Path: /dev/todo/:id <br>
 StatusCode: 204 <br>
 Com o id do item, irá deletar o item específico. Não retorna nada.
+
+---
