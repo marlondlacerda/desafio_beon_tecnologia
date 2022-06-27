@@ -1,3 +1,2 @@
-import Validation from './Validation';
-
-export default Validation;
+export { default as Validation } from './Validation';
+export { default as CacheRedis } from './CacheRedis';
