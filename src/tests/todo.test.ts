@@ -1,6 +1,6 @@
 import lambdaTester from 'lambda-tester';
 import { expect } from 'chai';
-import { create } from '../handler';
+import { create, find } from '../handler';
 import * as todosMock from './mocks/todo.mocks';
 import * as todosInput from './inputs/todoInputs';
 import { TodoModel } from '../models/';
@@ -70,6 +70,25 @@ describe('1) - Create [POST]', () => {
 
           expect(result.statusCode).to.equal(400);
           expect(body).to.deep.equal(todosMock.resultInvalidCreate3);
+        });
+    });
+  });
+});
+
+describe('2) - Read [GET]', () => {
+  describe('1) - When sucess', () => {
+    it('1) - returns an empty array or with objects containing the task list', () => {
+      const s = sinon.stub(todoModel.model, 'find').resolves(todosMock.find);
+
+      return lambdaTester(find)
+        .event({})
+        .expectResult((result: any) => {
+          const body = JSON.parse(result.body);
+          
+          console.log(result)
+          expect(result.statusCode).to.equal(200);
+          expect(body).to.deep.equal(todosMock.find);
+          s.restore();
         });
     });
   });
