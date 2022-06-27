@@ -28,6 +28,7 @@ class Validation {
   };
 
   static responseError = (error: unknown) => {
+    /* istanbul ignore else */
     if (error instanceof ZodError) {
       const { message } = error.issues[0];
 

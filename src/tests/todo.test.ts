@@ -93,7 +93,7 @@ describe('2) - Read [GET]', () => {
   });
 
   describe('2) - When error', () => {
-    it('1) - returns an empty array or with objects containing the task list', () => {
+    it('1) - returns 500 with message "Internal Server Error"', () => {
       const s = sinon.stub(todoModel.model, 'find').rejects(todosMock.findError);
 
       return lambdaTester(find)
@@ -122,6 +122,47 @@ describe('3) - Read One [GET]', () => {
           expect(result.statusCode).to.equal(200);
           expect(body).to.deep.equal(todosMock.findOne);
           s.restore();
+        });
+    });
+  });
+
+  describe('2) - When fail or Error', () => {
+    it('1) - returns 500 with message "Internal Server Error"', () => {
+      const s = sinon.stub(todoModel.model, 'findOne').rejects(todosMock.findError);
+
+      return lambdaTester(findOne)
+        .event({ pathParameters: { id: '5dff58da85eb210f0aac43af' } })
+        .expectResult((result: any) => {
+          const body = JSON.parse(result.body);
+
+          expect(result.statusCode).to.equal(500);
+          expect(body).to.deep.equal(todosMock.resultFindError);
+          s.restore();
+        });
+    });
+
+    it('2) - Shoud return status 404 and a error message ', () => {
+      const s = sinon.stub(todoModel.model, 'findOne').resolves(null);
+
+      return lambdaTester(findOne)
+        .event({ pathParameters: { id: '5dff58da85eb210f0aac43ef' } })
+        .expectResult((result: any) => {
+          const body = JSON.parse(result.body);
+
+          expect(result.statusCode).to.equal(404);
+          expect(body).to.deep.equal(todosMock.resultFindOneError404);
+          s.restore();
+        });
+    })
+
+    it('3) - When the id is invalid returns 400 and message error', () => {
+      return lambdaTester(findOne)
+        .event({ pathParameters: { id: '5dff58da85eb210f0aac43' } })
+        .expectResult((result: any) => {
+          const body = JSON.parse(result.body);
+
+          expect(result.statusCode).to.equal(400);
+          expect(body).to.deep.equal(todosMock.resultInvalidId);
         });
     });
   });

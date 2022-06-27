@@ -62,6 +62,10 @@ export const resultFindOneError404 = {
   "error": "The data was not found!"
 }
 
+export const resultInvalidId = {
+  "error": "Id must have 24 hexadecimal characters"
+}
+
 export const update = {
   "name": "Tarefa 3",
   "execution_date": "2022/06/01",
