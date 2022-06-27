@@ -78,3 +78,12 @@ export const update = {
 export const resultInvalidBody = {
   "error": "Invalid enum value. Expected 'Pendente' | 'Concluída', received 'Cancelado'"
 }
+
+export const remove = {
+  "_id": "62ba181475fdf204ab866d4f",
+  "name": "Tarefa 4",
+  "execution_date": "2022/06/01",
+  "situation": "Pendente",
+  "priority": "Baixa",
+  "conclusion_date": "2020/06/05"
+};

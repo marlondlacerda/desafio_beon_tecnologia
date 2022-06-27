@@ -190,10 +190,10 @@ describe('4) - Update [PUT]', () => {
 describe('5) - Delete [DELETE]', () => {
   describe('1) - When sucess', () => {
     it('1) - returns only status 204', () => {
-      const s = sinon.stub(todoModel.model, 'findOneAndDelete').resolves(todosMock.delete);
+      const s = sinon.stub(todoModel.model, 'findOneAndDelete').resolves(todosMock.remove);
 
       return lambdaTester(deleteOne)
-        .event({ pathParameters: { id: '5dff58da85eb210f0aac43af' } })
+        .event({ pathParameters: { id: '62ba181475fdf204ab866d4f' } })
         .expectResult((result: any) => {
           expect(result.statusCode).to.equal(204);
           expect(result.body).to.be.equal(undefined);
