@@ -19,6 +19,12 @@ abstract class Controller<T> {
       return MessageUtil.error(error);
     }
   };
+
+  readonly find = async () => {
+    const result = await this.service.read();
+
+    return MessageUtil.success('success', result);
+  };
 }
 
 export default Controller;
