@@ -1,15 +1,17 @@
 import { APIGatewayEvent, Handler } from 'aws-lambda';
 
 import { todoObjectIdSchema, todoSchema } from './schemas';
-import Validation from './middlewares';
+import { Validation, CacheRedis } from './middlewares';
 
 import { TodoService } from './services';
 import { TodoModel } from './models';
 import TodoController from './controllers';
+import { CreateTodoDTO } from './interfaces/CreateTodoDTO';
 
+const cacheRedis = new CacheRedis<CreateTodoDTO>();
 const todoModel = new TodoModel();
 const todoService = new TodoService(todoModel);
-const todoController = new TodoController(todoService);
+const todoController = new TodoController(todoService, cacheRedis);
 
 const validation = new Validation(
   todoSchema,
