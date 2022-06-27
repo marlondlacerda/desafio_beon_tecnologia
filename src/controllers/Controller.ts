@@ -44,7 +44,8 @@ abstract class Controller<T> {
 
       return MessageUtil.success('success', result);
     } catch (err) {
-      return MessageUtil.error(err);
+      const error = CreateError('error', 'Internal Server Error');
+      return MessageUtil.error(error);
     }
   };
 }
