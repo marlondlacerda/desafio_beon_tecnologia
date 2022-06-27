@@ -99,6 +99,9 @@ abstract class Controller<T> {
     try {
       await this.service.delete(id);
 
+      this.cacheRedis.del(`getOne:${id}`);
+      this.cacheRedis.del('getAll');
+
       return MessageUtil.success('noContent');
     } catch (err) {
       return MessageUtil.error(err);
