@@ -18,9 +18,9 @@ class MessageUtil {
   static success(code: string, data?: object): ResponseVO {
     // Caso as requisições forem um sucesso, ele retorna 
     // um objeto com status positivo, 200, 201, 204, etc.
-    const result = new ResultUtil(StatusCode[code], data);
+    const resultSucess = new ResultUtil(StatusCode[code], data);
 
-    return result.bodyToString();
+    return resultSucess.bodyToString();
   }
 
   static error(err: Error) {
@@ -30,8 +30,8 @@ class MessageUtil {
 
     /* istanbul ignore next */
     if (status) {
-      const result = new ResultUtil(status, { error: err.message });
-      return result.bodyToString();
+      const resultFail = new ResultUtil(status, { error: err.message });
+      return resultFail.bodyToString();
     } 
 
     // Caso não seja um erro do tipo especificado,
