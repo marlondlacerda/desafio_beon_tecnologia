@@ -33,3 +33,13 @@ export const findOne: Handler = async (event: APIGatewayEvent) => {
 
   return todoController.findOne(event);
 };
+
+export const update: Handler = async (event: APIGatewayEvent) => {
+  const resultId = await validation.params(event);
+  const resultBody = await validation.body(event);
+
+  if (resultId) return resultId;
+  if (resultBody) return resultBody;
+
+  return todoController.update(event);
+};
