@@ -15,15 +15,13 @@ jobs:
         with:
           node-version: 14
       - name: Install dependencies
-        run: npm ci  # OR: yarn 
-
+        run: npm ci
       - name: Run eslint on changed files
-        uses: tj-actions/eslint-changed-files@v10.1
+        uses: tj-actions/eslint-changed-files@v13
         with:
           config_path: ".eslintrc.json"
           ignore_path: ".eslintignore"
           extra_args: "--max-warnings=50"
-
           file_extensions: |
             **/*.ts
             **/*.tsx
