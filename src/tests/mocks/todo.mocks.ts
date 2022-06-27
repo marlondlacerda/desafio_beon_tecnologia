@@ -72,5 +72,5 @@ export const update = {
   "execution_date": "2022/06/01",
   "situation": "Concluída",
   "priority": "Alta",
-  "conclusion_date": "2020/06/05",
+  "conclusion_date": "2020/06/05"
 };

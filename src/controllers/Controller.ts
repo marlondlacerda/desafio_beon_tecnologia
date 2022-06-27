@@ -50,12 +50,11 @@ abstract class Controller<T> {
   };
 
   readonly update = async (event: APIGatewayEvent) => {
-    const { eventId } = event.pathParameters;
+    const eventId = event.pathParameters.id;
     const params:T = JSON.parse(event.body);
 
     try {
       const result = await this.service.update(eventId, params);
-
       if (!result) {
         const error = CreateError('notFound', 'The data was not found!');
 
