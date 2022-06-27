@@ -13,6 +13,9 @@ abstract class Service<T> {
   readonly create = async (data: T): Promise<object> => this.model.create(data);
 
   readonly read = async (): Promise<T[]> => this.model.read();
+
+  readonly readOne = async (id: string): Promise<object | null> =>
+    this.model.readOne(id);
 }
 
 export default Service;
