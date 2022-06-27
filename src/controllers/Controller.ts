@@ -21,9 +21,13 @@ abstract class Controller<T> {
   };
 
   readonly find = async () => {
-    const result = await this.service.read();
-
-    return MessageUtil.success('success', result);
+    try {
+      const result = await this.service.read();
+      return MessageUtil.success('success', result);
+    } catch (err) {
+      const error = CreateError('error', 'Internal Server Error');
+      return MessageUtil.error(error);
+    }
   };
 }
 
