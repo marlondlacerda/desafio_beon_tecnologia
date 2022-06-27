@@ -1,8 +1,8 @@
 import { Model as M, Document } from 'mongoose';
-import { Model } from '../interfaces';
+import { ModelInterface } from '../interfaces';
 import connectToDatabase from './config';
 
-abstract class MongoModel<T> implements Model<T> {
+abstract class MongoModel<T> implements ModelInterface<T> {
   static connection = connectToDatabase();
 
   constructor(protected model: M<T & Document>) {}
