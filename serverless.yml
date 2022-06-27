@@ -1,0 +1,54 @@
+service: todo-rest-api-typescript
+
+disabledDeprecations:
+  - '*'
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  environment:
+    NODE_ENV: dev
+
+plugins:
+  - serverless-plugin-typescript 
+  - serverless-offline
+
+package:
+  exclude:
+    - config/.env.stg
+    - config/.env.pro
+  include:
+    - config/.env.dev
+
+functions:
+  create:
+    handler: src/handler.create
+    events:
+      - http:
+          path: todo
+          method: post
+  update:
+    handler: src/handler.update
+    events:
+      - http:
+          path: todo/{id}
+          method: put
+  find:
+    handler: src/handler.find
+    events:
+      - http:
+          path: todo
+          method: get
+  findOne:
+    handler: src/handler.findOne
+    events:
+      - http:
+          path: todo/{id}
+          method: get
+
+  deleteOne:
+    handler: src/handler.deleteOne
+    events:
+      - http:
+          path: todo/{id}
+          method: delete

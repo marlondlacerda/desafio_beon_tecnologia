@@ -1,0 +1,8 @@
+build
+coverage
+node_modules
+README.md
+.env
+.eslint*
+nyc.config.js
+.build
