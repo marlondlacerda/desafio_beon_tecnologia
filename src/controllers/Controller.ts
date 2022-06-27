@@ -83,6 +83,10 @@ abstract class Controller<T> {
         return MessageUtil.error(error);
       }
 
+      const { id } = result as any;
+
+      this.cacheRedis.set(`getOne:${id}`, result, 60 * 30);
+
       return MessageUtil.success('noContent');
     } catch (err) {
       const error = CreateError('error', INTERNAL_SERVER_ERROR);
