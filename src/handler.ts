@@ -24,4 +24,4 @@ export const create: Handler = async (event: APIGatewayEvent) => {
   return todoController.create(event);
 };
 
-export default create;
+export const find: Handler = () => todoController.find();
