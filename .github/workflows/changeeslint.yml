@@ -1,0 +1,23 @@
+
+...:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14
+
+      - name: Install dependencies
+        run: npm ci  # OR: yarn 
+
+      - name: Run eslint on changed files
+        uses: tj-actions/eslint-changed-files@v13
+        with:
+          config_path: "/path/to/.eslintrc"
+          ignore_path: "/path/to/.eslintignore"
+          extra_args: "--max-warnings=50"
+          file_extensions: |
+            **/*.ts
+            **/*.tsx
