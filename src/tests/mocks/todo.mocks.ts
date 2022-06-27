@@ -45,8 +45,8 @@ export const resultInvalidCreate1 = {
 };
 
 export const resultInvalidCreate2 = {
-  error: '"conclusion_date" deve ser uma data exemplo:\n\"YY/MM/DD\" ou "2020-01-01T00:00:00.000Z"'
-}
+  "error": "Data inválida ou não informada, exemplos de data válidas:\"YY/MM/DD\" ou \"2020-01-01T00:00:00.000Z\""
+};
 
 export const update = {
   "name": "Tarefa 3",
