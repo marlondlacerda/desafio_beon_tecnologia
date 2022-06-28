@@ -1,106 +1,140 @@
-<!--
-title: 'Serverless Framework Node Express API on AWS'
-description: 'This template demonstrates how to develop and deploy a simple Node Express API running on AWS Lambda using the traditional Serverless Framework.'
-layout: Doc
-framework: v3
-platform: AWS
-language: nodeJS
-priority: 1
-authorLink: 'https://github.com/serverless'
-authorName: 'Serverless, inc.'
-authorAvatar: 'https://avatars1.githubusercontent.com/u/13742415?s=200&v=4'
--->
+# Desafio Técnico Beon
 
-# Serverless Framework Node Express API on AWS
+<img alt="GitHub language count" src="https://img.shields.io/github/languages/count/marlondlacerda/desafio_beon_tecnologia?color=6E40C9&style=flat-square"><img alt="GitHub Top Language" src="https://img.shields.io/github/languages/top/marlondlacerda/desafio_beon_tecnologia?color=2b7489&style=flat-square">
+<a href="https://github.com/marlondlacerda/desafio_beon_tecnologia/commits/main"><img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/marlondlacerda/desafio_beon_tecnologia?color=6E40C9&style=flat-square"></a>
 
-This template demonstrates how to develop and deploy a simple Node Express API service running on AWS Lambda using the traditional Serverless Framework.
+<img align="right" src="public/img/beonlogo.jpeg" width="250px" alt="python in pixel art">
 
-## Anatomy of the template
+## Tópicos
 
-This template configures a single function, `api`, which is responsible for handling all incoming requests thanks to the `httpApi` event. To learn more about `httpApi` event configuration options, please refer to [httpApi event docs](https://www.serverless.com/framework/docs/providers/aws/events/http-api/). As the event is configured in a way to accept all incoming requests, `express` framework is responsible for routing and handling requests internally. Implementation takes advantage of `serverless-http` package, which allows you to wrap existing `express` applications. To learn more about `serverless-http`, please refer to corresponding [GitHub repository](https://github.com/dougmoscrop/serverless-http).
+[Sobre a Api](#sobre-a-api)
 
-## Usage
+[Tecnologias](#tecnologias)
 
-### Deployment
+[Instalação e uso](#instalação-e-uso)
 
-Install dependencies with:
+<br>
+<br>
+<br>
+<br>
 
+---
+
+## Sobre a Api
+
+Uma API desenvolvida em Typescript, Redis, MongoDB, NodeJS e AWS Lambda para o desafio Beon.
+
+É uma API RESTful que utiliza o padrão de nomeação de rotas para identificar os endpoints. Executar CRUD em um banco de dados MongoDB. E o Redis para armazenar os dados em cache.  
+
+---
+
+## Tecnologias
+
+### Principais
+
+- Ioredis - Redis
+- Mongoose - MongoDB
+- Zod
+- Git
+- GitHub
+- Docker
+- Typescript
+
+### Para o Desenvolvimento
+
+- Serverless Offline
+- Mocha
+- Chai
+- Sinon
+- Eslint
+- Lambda Tester
+
+---
+
+## Instalação e uso
+
+### Body - Corpo da requisição
+
+```bash
+{
+  "name": string,
+  "execution_date": date, (no formato ISO ou YYYY-MM-DD,)
+  "situation": enum string ("Pendente" | "Concluído")
+  "priority": enum string ("Baixa" | "Média" | "Alta")
+  "conclusion_date": date, (no formato ISO ou YYYY-MM-DD,)
+}
 ```
+
+### Configuração e Instalação
+
+
+```bash
+# Abra um terminal e copie este repositório com o comando
+git clone git@github.com:marlondlacerda/desafio_beon_tecnologia.git
+# ou use a opção de download
+
+# Entre na pasta com 
+cd desafio_beon_tecnologia
+
+# Crie um arquivo .env para setar as variáveis de ambiente, utilize o arquivo .env.example 
+#como referência
+
+#COM O DOCKER-COMPOSE
+# Execute o comando
+docker-compose up --build
+
+##obs caso der erro de variáveis de ambiente, vá no arquivo docker-compose.yml e nas sessões
+# environment, adicione as variáveis de ambiente para cada sessão
+
+## Após o docker-compose terminar, você estará apto para executar as requisições
+
+#COM O NODEJS E SERVERLESS OFFLINE
+# Execute o comando
 npm install
+
+# após a instalação, execute o comando
+serverless offline start
+
+#Após a execução, você estará apto para executar as requisições
 ```
 
-and then deploy with:
-
-```
-serverless deploy
-```
-
-After running deploy, you should see output similar to:
+Com o serverless offline local ou docker compose no ar, observe o corpo de requisição exemplo abaixo e execute as requisições para testar o funcionamento da API.
 
 ```bash
-Deploying aws-node-express-api-project to stage dev (us-east-1)
-
-✔ Service deployed to stack aws-node-express-api-project-dev (196s)
-
-endpoint: ANY - https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com
-functions:
-  api: aws-node-express-api-project-dev-api (766 kB)
+{
+  "name": "Desafio Beon",
+  "execution_date": "2020-01-01",
+  "situation": "Pendente",
+  "priority": "Baixa",
+  "conclusion_date": "2020-01-01"
+}
 ```
 
-_Note_: In current form, after deployment, your API is public and can be invoked by anyone. For production deployments, you might want to configure an authorizer. For details on how to do that, refer to [`httpApi` event docs](https://www.serverless.com/framework/docs/providers/aws/events/http-api/).
+---
 
-### Invocation
+Método: POST <br>
+Path: /dev/todo/ <br>
+StatusCode: 201 <br>
+Irá criar um novo item na lista de tarefas.e o seu _id
 
-After successful deployment, you can call the created application via HTTP:
+Método: GET <br>
+Path: /dev/todo/ <br>
+StatusCode: 200
+Irá retornar todos os itens da lista de tarefas.
 
-```bash
-curl https://xxxxxxx.execute-api.us-east-1.amazonaws.com/
-```
+Método: GET <br>
+Path: /dev/todo/:id <br>
+StatusCode: 200
+Com o id do item, irá retornar o item específico.
 
-Which should result in the following response:
+Método: PUT <br>
+Path: /dev/todo/:id <br>
+StatusCode: 204 <br>
+Com o id do item, irá atualizar o item específico. Não retorna nada.
 
-```
-{"message":"Hello from root!"}
-```
+Método: DELETE <br>
+Path: /dev/todo/:id <br>
+StatusCode: 204 <br>
+Com o id do item, irá deletar o item específico. Não retorna nada.
 
-Calling the `/hello` path with:
-
-```bash
-curl https://xxxxxxx.execute-api.us-east-1.amazonaws.com/hello
-```
-
-Should result in the following response:
-
-```bash
-{"message":"Hello from path!"}
-```
-
-If you try to invoke a path or method that does not have a configured handler, e.g. with:
-
-```bash
-curl https://xxxxxxx.execute-api.us-east-1.amazonaws.com/nonexistent
-```
-
-You should receive the following response:
-
-```bash
-{"error":"Not Found"}
-```
-
-### Local development
-
-It is also possible to emulate API Gateway and Lambda locally by using `serverless-offline` plugin. In order to do that, execute the following command:
-
-```bash
-serverless plugin install -n serverless-offline
-```
-
-It will add the `serverless-offline` plugin to `devDependencies` in `package.json` file as well as will add it to `plugins` in `serverless.yml`.
-
-After installation, you can start local emulation with:
-
-```
-serverless offline
-```
-
-To learn more about the capabilities of `serverless-offline`, please refer to its [GitHub repository](https://github.com/dherault/serverless-offline).
+---
