@@ -32,7 +32,7 @@ abstract class Controller<T> {
       const cached = await this.cacheRedis.get('getAll');
 
       if (cached) {
-        return MessageUtil.success('cached', cached);
+        return MessageUtil.success('sucess', cached);
       }
 
       const result = await this.service.read();
@@ -50,7 +50,7 @@ abstract class Controller<T> {
 
     const cached = await this.cacheRedis.get(`getOne:${id}`);
     if (cached) {
-      return MessageUtil.success('cached', cached);
+      return MessageUtil.success('sucess', cached);
     }
 
     try {
